@@ -59,7 +59,7 @@ print("autotrade start")
 transaction=0
 avg_price=0
 k=0.3
-sp=0.97
+sp=0.98
 target_coin=[]
 t_coin=[]
 target_price=[]
@@ -76,7 +76,7 @@ while True:
         start_time = get_start_time("KRW-BTC")
         end_time = start_time + datetime.timedelta(days=1)
 
-        if start_time < now < end_time - datetime.timedelta(seconds=10):
+        if start_time < now < end_time - datetime.timedelta(seconds=30):
             if transaction == 0:
                 if not bool(target_price):
                     for n in tops:
@@ -110,12 +110,12 @@ while True:
                 curr_price = cur_price(target_coin)    
                 if curr_price < (avg_price * sp):
                     coin_val = get_balance(t_coin)
-                    if coin_val > (5000/curr_price): 
+                    if coin_val > (5000 / curr_price): 
                         upbit.sell_market_order(target_coin, coin_val*0.9995)  
                         transaction=2
  
         else:
-            for c in range(0,(len(tops))):
+            for c in range(len(tops)):
                 coin_val = get_balance(ts[c])
                 curr_price = cur_price(tops[c])   
                 if coin_val > (5000/curr_price): 
