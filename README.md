@@ -1,2 +1,2 @@
 # BTC3
-auto trade upgrade version2
+auto trade upgrade version3
