@@ -98,7 +98,14 @@ while True:
                         if odd > 2:
                             poolplus.append(po)
                     [tops.append(x) for x in poolplus if x not in tops]     
-           
+                    ts=[]
+                    for n in range(0,(len(tops))):
+                        t=tops[n][4:]
+                        ts.append(t) 
+                    for n in tops:
+                        target = get_target_price(n, k)
+                        target_price.append(target)
+                        
                 if not bool(target_price):
                     for n in tops:
                         target = get_target_price(n, k)
@@ -145,6 +152,10 @@ while True:
             avg_price=0
             target_price=[]
             tops= ['KRW-BTC', 'KRW-ETH', 'KRW-XRP', 'KRW-ADA', 'KRW-SOL']
+            ts=[]
+            for n in range(0,(len(tops))):
+                t=tops[n][4:]
+                ts.append(t) 
         time.sleep(1)
     except Exception as e:
         print(e)
