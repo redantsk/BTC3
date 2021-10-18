@@ -52,6 +52,11 @@ def cur_price(ticker):
     """현재 체결가 조회"""
     return pyupbit.get_current_price(ticker)
 
+def get_odd(ticker):
+    df = pyupbit.get_ohlcv(ticker, interval="day", count=2)
+    odd = df.iloc[1]['volume'] / df.iloc[0]['volume']
+    return odd
+
 # 로그인
 upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
@@ -63,21 +68,38 @@ sp=0.98
 target_coin=[]
 t_coin=[]
 target_price=[]
-tops = ['KRW-ETH', 'KRW-ADA', 'KRW-XRP', 'KRW-DOT', 'KRW-DOGE', 'KRW-BTC']
+tops = ['KRW-ETH', 'KRW-ADA', 'KRW-XRP', 'KRW-DOT', 'KRW-DOGE', 'KRW-BTC']  # 00000
 ts=[]
 for n in range(0,(len(tops))):
     t=tops[n][4:]
     ts.append(t)
 
+pools=[] #00000
+    
+    
 # 자동매매 시작
 while True:
     try:
         now = datetime.datetime.now()
         start_time = get_start_time("KRW-BTC")
         end_time = start_time + datetime.timedelta(days=1)
+        pooltime1=start_time + datetime.timedelta(minutes=30)
+        pooltime2=start_time + datetime.timedelta(minutes=60)
+        pooltime3=start_time + datetime.timedelta(minutes=90)
+        pooltime4=start_time + datetime.timedelta(minutes=120)
+        pooltime5=start_time + datetime.timedelta(minutes=150)
+        pooltime6=start_time + datetime.timedelta(minutes=180)
 
         if start_time < now < end_time - datetime.timedelta(seconds=30):
             if transaction == 0:
+                if pooltime1 < now < (pooltime1 + datetime.timedelta(seconds=10)) or pooltime2 < now < (pooltime2 + datetime.timedelta(seconds=10)) or pooltime3 < now < (pooltime3 + datetime.timedelta(seconds=10)) or pooltime4 < now < (pooltime4 + datetime.timedelta(seconds=10)) or pooltime6 < now < (pooltime2 + datetime.timedelta(seconds=10)) or pooltime6 < now < (pooltime6 + datetime.timedelta(seconds=10)):
+                    poolplus=[]
+                    for po in pools:
+                        odd= get_odd(po)
+                        if odd > 2:
+                            poolplus.append(po)
+                    [tops.append(x) for x in poolplus if x not in tops]     
+           
                 if not bool(target_price):
                     for n in tops:
                         target = get_target_price(n, k)
@@ -123,6 +145,7 @@ while True:
             transaction=0
             avg_price=0
             target_price=[]
+            tops=[]  # 00000
         time.sleep(1)
     except Exception as e:
         print(e)
