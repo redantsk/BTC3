@@ -68,14 +68,13 @@ sp=0.98
 target_coin=[]
 t_coin=[]
 target_price=[]
-tops = ['KRW-ETH', 'KRW-ADA', 'KRW-XRP', 'KRW-DOT', 'KRW-DOGE', 'KRW-BTC']  # 00000
+tops = ['KRW-BTC', 'KRW-ETH', 'KRW-XRP', 'KRW-ADA', 'KRW-SOL']
 ts=[]
 for n in range(0,(len(tops))):
     t=tops[n][4:]
     ts.append(t)
 
-pools=[] #00000
-    
+pools= ['KRW-STPT', 'KRW-QKC', 'KRW-AXS', 'KRW-CBK', 'KRW-RFR', 'KRW-HIVE', 'KRW-STX', 'KRW-DOT', 'KRW-POLY', 'KRW-OMG']
     
 # 자동매매 시작
 while True:
@@ -145,7 +144,7 @@ while True:
             transaction=0
             avg_price=0
             target_price=[]
-            tops=[]  # 00000
+            tops= ['KRW-BTC', 'KRW-ETH', 'KRW-XRP', 'KRW-ADA', 'KRW-SOL']
         time.sleep(1)
     except Exception as e:
         print(e)
