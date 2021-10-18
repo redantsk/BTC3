@@ -42,11 +42,11 @@ def get_average(ticker):
 
 def get_current_price(ticker):
     """현재가 매도가 조회"""
-    return pyupbit.get_orderbook(tickers=ticker)[0]["orderbook_units"][0]["ask_price"]
+    return pyupbit.get_orderbook(ticker)["orderbook_units"][0]["ask_price"]
 
 def get_bid_price(ticker):
     """현재 매수가 조회"""
-    return pyupbit.get_orderbook(tickers=ticker)[0]["orderbook_units"][0]["bid_price"]
+    return pyupbit.get_orderbook(ticker)["orderbook_units"][0]["bid_price"]
 
 def cur_price(ticker):
     """현재 체결가 조회"""
@@ -111,7 +111,7 @@ while True:
                 if curr_price < (avg_price * sp):
                     coin_val = get_balance(t_coin)
                     if coin_val > (5000 / curr_price): 
-                        upbit.sell_market_order(target_coin, coin_val*0.9995)  
+                        upbit.sell_market_order(target_coin, coin_val)  
                         transaction=2
  
         else:
@@ -119,7 +119,7 @@ while True:
                 coin_val = get_balance(ts[c])
                 curr_price = cur_price(tops[c])   
                 if coin_val > (5000/curr_price): 
-                    upbit.sell_market_order(target_coin, coin_val*0.9995)  
+                    upbit.sell_market_order(target_coin, coin_val)  
             transaction=0
             avg_price=0
             target_price=[]
