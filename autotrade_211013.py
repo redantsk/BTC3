@@ -70,8 +70,8 @@ t_coin=[]
 target_price=[]
 tops = ['KRW-BTC', 'KRW-ETH', 'KRW-XRP', 'KRW-ADA', 'KRW-SOL']
 ts=[]
-for n in range(0,(len(tops))):
-    t=tops[n][4:]
+for no in range(len(tops)):
+    t=tops[no][4:]
     ts.append(t)
 
 pools= ['KRW-STPT', 'KRW-QKC', 'KRW-AXS', 'KRW-CBK', 'KRW-RFR', 'KRW-HIVE', 'KRW-STX', 'KRW-DOT', 'KRW-POLY', 'KRW-OMG']
@@ -99,8 +99,8 @@ while True:
                             poolplus.append(po)
                     [tops.append(x) for x in poolplus if x not in tops]     
                     ts=[]
-                    for n in range(0,(len(tops))):
-                        t=tops[n][4:]
+                    for no in range(len(tops)):
+                        t=tops[no][4:]
                         ts.append(t) 
                     for n in tops:
                         target = get_target_price(n, k)
@@ -114,17 +114,17 @@ while True:
                 current_price=[]
                 comp=[]
                 i=0
-                for n in tops:
-                    current = get_current_price(n)
+                for nn in tops:
+                    current = get_current_price(nn)
                     current_price.append(current)
                     comp.append(target_price[i] < current)
                     i += 1
 
                 if any(comp):  
                     buying=[]
-                    for i in list(np.where(comp)[0]):
-                        val = pyupbit.get_ohlcv(tops[i], interval="day", count=1)
-                        buying.append((tops[i], val.iloc[0]['value']))
+                    for ii in list(np.where(comp)[0]):
+                        val = pyupbit.get_ohlcv(tops[ii], interval="day", count=1)
+                        buying.append((tops[ii], val.iloc[0]['value']))
                     sorted_buying = sorted(buying, key=lambda x:x[1], reverse=True)
                     target_coin=sorted_buying[0][0]
                     t_coin=target_coin[4:]
@@ -153,8 +153,8 @@ while True:
             target_price=[]
             tops= ['KRW-BTC', 'KRW-ETH', 'KRW-XRP', 'KRW-ADA', 'KRW-SOL']
             ts=[]
-            for n in range(0,(len(tops))):
-                t=tops[n][4:]
+            for no in range(len(tops)):
+                t=tops[no][4:]
                 ts.append(t) 
         time.sleep(1)
     except Exception as e:
